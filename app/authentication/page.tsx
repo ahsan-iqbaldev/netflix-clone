@@ -2,12 +2,13 @@
 
 import React, { useState } from "react";
 import Input from "../components/Input";
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
 
 const Page = () => {
   const [email, setemail] = useState("");
-  const [username, setusername] = useState("");
+  const [name, setName] = useState("");
   const [password, setpassword] = useState("");
-
   const [variant, setVarient] = useState("login");
 
   const togglevariant = () => {
@@ -15,6 +16,8 @@ const Page = () => {
       currVarient === "login" ? "register" : "login"
     );
   };
+
+
   return (
     <div className="relative h-full w-full bg-[url('/images/hero.jpg')] bg-no-repeat">
       <div className="bg-black w-full h-full lg:bg-opacity-50">
@@ -29,9 +32,9 @@ const Page = () => {
             <div className="flex flex-col gap-4">
               {variant == "register" && (
                 <Input
-                  id="username"
-                  onChange={(val: any) => setusername(val.target.value)}
-                  value={username}
+                  id="name"
+                  onChange={(val: any) => setName(val.target.value)}
+                  value={name}
                   label="Username"
                   type="text"
                 />
@@ -51,10 +54,20 @@ const Page = () => {
                 type="password"
               />
             </div>
-            <button className="bg-red-600  py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition">
+            <button
+              className="bg-red-600  py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition"
+            >
               {variant == "login" ? "Login" : "Sign Up"}
             </button>
-            <p className="text-neutral-500 mt-12">
+            <div className="flex flex-row items-center gap-4 mt-8 justify-center">
+              <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition">
+                <FcGoogle size={30} />
+              </div>
+              <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition">
+                <FaGithub size={30} />
+              </div>
+            </div>
+            <p className="text-neutral-500 mt-6">
               {variant === "login" ? (
                 <>
                   First time using Netflix?
