@@ -1,8 +1,16 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import { movies } from "../../context/index";
 import { AiOutlineInfoCircle } from "react-icons/ai";
+import { FaPlay } from "react-icons/fa";
+import InfoModal from "./InfoModal";
 
 const Billboard = () => {
+  const [isOpen, setisOpen] = useState(false);
+  const onClose = () => {
+    setisOpen(!isOpen);
+  };
   return (
     <div className="relative h-[56.25vw]">
       <video
@@ -21,12 +29,20 @@ const Billboard = () => {
           {movies[0]?.description}
         </p>
         <div className="flex flex-row items-center mt-3 md:mt-4 gap-3">
-          <button className="bg-white text-white bg-opacity-30 rounded-md py-1 md:py-2 px-2 md:px-4 w-auto text-xs lg:text-lg font-semibold flex flex-row items-center hover:bg-opacity-20 transition gap-1">
-            <AiOutlineInfoCircle/>
+          <button className="bg-white text-black rounded-md py-1 md:py-2 px-2 md:px-4 w-auto text-xs lg:text-lg font-semibold flex flex-row items-center hover:bg-opacity-20 transition gap-1">
+            <FaPlay className="mr-1" />
+            Play
+          </button>
+          <button
+            onClick={() => setisOpen(true)}
+            className="bg-white text-white bg-opacity-30 rounded-md py-1 md:py-2 px-2 md:px-4 w-auto text-xs lg:text-lg font-semibold flex flex-row items-center hover:bg-opacity-20 transition gap-1"
+          >
+            <AiOutlineInfoCircle />
             More Info
           </button>
         </div>
       </div>
+      <InfoModal visible={isOpen} onClose={onClose} />
     </div>
   );
 };
