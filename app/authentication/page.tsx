@@ -1,11 +1,20 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "../components/Input";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser, registerUser } from "@/store/Slices/authSlice";
+import { ThunkDispatch } from "@reduxjs/toolkit";
+import { RootState } from "@/store/store";
+import { redirect, useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const Page = () => {
+  const router = useRouter()
+  const { user, loading } = useSelector((state: RootState) => state.auth);
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const [email, setemail] = useState("");
   const [name, setName] = useState("");
   const [password, setpassword] = useState("");
@@ -17,6 +26,53 @@ const Page = () => {
     );
   };
 
+  const register = () => {
+    const payload = {
+      email,
+      name,
+      password,
+    };
+
+    dispatch(
+      registerUser({
+        payload,
+        onSuccess: () => {
+          toast.success("Register Sucessfully")
+          setVarient("login");
+          setemail("");
+          setName("");
+          setpassword("");
+        },
+      })
+    );
+
+    console.log(payload, "payload");
+  };
+
+  const login = () => {
+    const payload = {
+      email,
+      password,
+    };
+
+    dispatch(
+      loginUser({
+        payload,
+        onSuccess: () => {
+          toast.success("Login Sucessfully")
+          router.push("/profile");
+        },
+      })
+    );
+
+    console.log(payload, "payload");
+  };
+
+  useEffect(() => {
+    if (user != null) {
+      return redirect("/");
+    }
+  }, []);
 
   return (
     <div className="relative h-full w-full bg-[url('/images/hero.jpg')] bg-no-repeat">
@@ -55,9 +111,12 @@ const Page = () => {
               />
             </div>
             <button
+              disabled={loading}
+              onClick={variant == "login" ? login : register}
               className="bg-red-600  py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition"
             >
               {variant == "login" ? "Login" : "Sign Up"}
+              {loading && "...."}
             </button>
             <div className="flex flex-row items-center gap-4 mt-8 justify-center">
               <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition">
