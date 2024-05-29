@@ -5,6 +5,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import FavoriteButton from "./FavoriteButton";
 import { movies } from "../../context/index";
 import { FaPlay } from "react-icons/fa";
+import Link from "next/link";
 
 interface InfoModalProps {
   visible?: boolean;
@@ -56,10 +57,12 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
                 {movies[0]?.title}
               </p>
               <div className="flex flex-row gap-4 items-center">
+              <Link href='/watch'>
                 <button className="bg-white text-black rounded-md py-1 md:py-2 px-2 md:px-4 w-auto text-xs lg:text-lg font-semibold flex flex-row items-center hover:bg-opacity-20 transition gap-1">
                   <FaPlay className="mr-1" />
                   Play
                 </button>
+                </Link>
                 <FavoriteButton />
               </div>
             </div>

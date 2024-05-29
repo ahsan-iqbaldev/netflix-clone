@@ -23,6 +23,7 @@ export default function Home() {
       <Billboard />
       <div className="pb-40">
         <MovieList data={movies} title="Trending Now" />
+        <MovieList data={movies} title="Netflix Special" />
       </div>
     </>
   );

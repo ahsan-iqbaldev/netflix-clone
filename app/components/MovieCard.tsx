@@ -1,14 +1,15 @@
 import React from "react";
 import { BsFillPlayFill } from "react-icons/bs";
 import FavoriteButton from "./FavoriteButton";
+import Link from "next/link";
 interface MovieCardProps {
   data: Record<string, any>;
 }
 const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
   return (
-    <div className="group bg-zinc-900 col-span relative h-[12vw]">
+    <div className="group bg-zinc-900 col-span relative h-[45vw] md:h-[25vw] lg:h-[12vw]">
       <img
-        className="cursor-pointer object-cover transition duration shadow-xl rounded-md group-hover:opacity-90 sm:group-hover:opacity-0 delay-300 w-full h-[12vw]"
+        className="cursor-pointer object-cover transition duration shadow-xl rounded-md group-hover:opacity-90 sm:group-hover:opacity-0 delay-300 w-full h-[45vw] md:h-[25vw] lg:h-[12vw]"
         src={data?.thumbnailUrl}
         alt="thumbnail"
       />
@@ -21,9 +22,11 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
         <div className="z-10 bg-zinc-800 p-2 lg:p-4 absolute w-full transition shadow-md rounded-b-md">
           <div className="flex flex-row items-center gap-3">
             <div className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex justify-center items-center transition hover:bg-neutral-300">
+            <Link href='/watch'>
               <BsFillPlayFill size={30} />
+              </Link>
             </div>
-            <FavoriteButton/>
+            <FavoriteButton />
           </div>
           <p className="text-green-400 font-semibold mt-4">
             New <span className="text-white">2023</span>
