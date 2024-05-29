@@ -1,12 +1,13 @@
 "use client";
 
 import { RootState } from "@/store/store";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux"; 
 
-const page = () => {
+const Page = () => { 
   const router = useRouter();
+  const dispatch = useDispatch(); 
   const { user } = useSelector((state: RootState) => state.auth);
 
   const handleHome = () => {
@@ -15,9 +16,10 @@ const page = () => {
 
   useEffect(() => {
     if (user == null) {
-      return redirect("/authentication");
+      router.push("/authentication");
     }
-  }, []);
+  }, [router, user]); 
+
   return (
     <div className="flex items-center h-full justify-center">
       <div className="flex flex-col">
@@ -44,4 +46,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
