@@ -51,7 +51,34 @@ export const loginUser = createAsyncThunk(
       onSuccess();
       return userData;
     } catch (err: any) {
-        console.log(err)
+      console.log(err);
+      return rejectWithValue(err);
+    }
+  }
+);
+
+export const googleLogin = createAsyncThunk(
+  "auth/googleLogin",
+  async ({ onSuccess }: { onSuccess: any }, { rejectWithValue }) => {
+    try {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      const userCredential = await firebase.auth().signInWithPopup(provider);
+      const user = userCredential.user;
+      const createdAt = firebase.firestore.FieldValue.serverTimestamp();
+      const userData = {
+        userName: user?.displayName,
+        email: user?.email,
+        createdAt,
+      };
+      await firebase
+        .firestore()
+        .collection("users")
+        .doc(user?.uid)
+        .set(userData);
+      onSuccess();
+      return userData;
+    } catch (err: any) {
+      console.log(err);
       return rejectWithValue(err);
     }
   }
@@ -83,12 +110,10 @@ const authSlice = createSlice({
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
       })
-
       .addCase(registerUser.rejected, (state, action) => {
         console.log("Error");
         state.loading = false;
       })
-
       .addCase(loginUser.pending, (state) => {
         console.log("Running");
         state.loading = true;
@@ -98,11 +123,24 @@ const authSlice = createSlice({
         state.loading = false;
         state.user = action.payload;
       })
-
       .addCase(loginUser.rejected, (state, action) => {
         console.log("Error");
         state.loading = false;
-        state.error = action.error
+        state.error = action.error;
+      })
+      .addCase(googleLogin.pending, (state) => {
+        console.log("Google Login Running");
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(googleLogin.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
+      .addCase(googleLogin.rejected, (state, action) => {
+        console.log("Google Login Error");
+        state.loading = false;
+        state.error = action.error;
       });
   },
 });

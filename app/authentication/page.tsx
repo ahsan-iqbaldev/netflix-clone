@@ -5,14 +5,14 @@ import Input from "../components/Input";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser, registerUser } from "@/store/Slices/authSlice";
+import { googleLogin, loginUser, registerUser } from "@/store/Slices/authSlice";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { RootState } from "@/store/store";
 import { redirect, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
 const Page = () => {
-  const router = useRouter()
+  const router = useRouter();
   const { user, loading } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const [email, setemail] = useState("");
@@ -37,7 +37,7 @@ const Page = () => {
       registerUser({
         payload,
         onSuccess: () => {
-          toast.success("Register Sucessfully")
+          toast.success("Register Sucessfully");
           setVarient("login");
           setemail("");
           setName("");
@@ -59,13 +59,23 @@ const Page = () => {
       loginUser({
         payload,
         onSuccess: () => {
-          toast.success("Login Sucessfully")
+          toast.success("Login Sucessfully");
           router.push("/profile");
         },
       })
     );
 
-    console.log(payload, "payload");
+  };
+
+  const handleGoogle = () => {
+    dispatch(
+      googleLogin({
+        onSuccess: () => {
+          toast.success("Login Sucessfully");
+          router.push("/profile");
+        },
+      })
+    );
   };
 
   useEffect(() => {
@@ -119,7 +129,10 @@ const Page = () => {
               {loading && "...."}
             </button>
             <div className="flex flex-row items-center gap-4 mt-8 justify-center">
-              <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition">
+              <div
+                onClick={handleGoogle}
+                className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition"
+              >
                 <FcGoogle size={30} />
               </div>
               <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition">
