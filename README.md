@@ -1,3 +1,7 @@
+![image](https://github.com/reven-solutions/netflix-clone/assets/150703987/c8543431-8be1-4adc-bd3d-6c5fb4108033)
+
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
