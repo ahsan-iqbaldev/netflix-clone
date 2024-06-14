@@ -1,14 +1,19 @@
 
 Register Page
 ![image](https://github.com/reven-solutions/netflix-clone/assets/150703987/140375e6-5423-4420-b5fc-106d87e6b497)
+
 Login Page
 ![image](https://github.com/reven-solutions/netflix-clone/assets/150703987/8ef683fa-2875-4c49-80d8-682aa2e615a8)
+
 Welcome Screen
 ![image](https://github.com/reven-solutions/netflix-clone/assets/150703987/ad255e6b-5cc4-4038-9dca-a44e8ad9b46a)
+
 Home Page
 ![image](https://github.com/reven-solutions/netflix-clone/assets/150703987/67937358-ee08-413b-b135-66cc4f10d699)
+
 More Info Modal
 ![image](https://github.com/reven-solutions/netflix-clone/assets/150703987/01157009-cf43-4835-9c9e-7ee163ad96ea)
+
 Fast screen
 ![image](https://github.com/reven-solutions/netflix-clone/assets/150703987/8e77a0ea-6393-412e-a7ed-55c13b13c21d)
 
